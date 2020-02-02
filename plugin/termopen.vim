@@ -40,6 +40,8 @@ function! TermOpen(...)
       wincmd L
     elseif type == 't'  " open term in a new [t]ab
       tabnew
+    elseif type == 'b'  " open term in a new [b]uffer
+      edit term
     endif               " otherwise, open term in the current window
 
     " default callback = close the terminal window when done
@@ -101,7 +103,7 @@ let s:ranger_tmp = '/tmp/selectedfiles'
 function! s:ranger_edit()
   if filereadable(s:ranger_tmp)
     for path in readfile(s:ranger_tmp)
-      exec 'split ' . fnamemodify(path, ':p:.')
+      exec 'e ' . fnamemodify(path, ':p:.')
     endfor
     call delete(s:ranger_tmp)
   endif
